@@ -1,0 +1,48 @@
+#include <stdio.h>
+#define V 4 // Number of vertices in the graph
+int main() {
+    // Representation of graph as an adjacency matrix
+    int graph[V][V] = {
+        {0, 1, 1, 1},
+        {1, 0, 0, 1},
+        {1, 0, 0, 1},
+        {1, 1, 1, 0}
+    };
+
+    int m = 3; // Number of colors
+    int color[V]; // Array to store colors assigned to vertices
+
+    // Initialize colors to 0 (uncolored)
+    for (int i = 0; i < V; i++) {
+        color[i] = 0;
+    }
+
+    // Try to color the graph using m colors
+    for (int v = 0; v < V; v++) {
+        for (int c = 1; c <= m; c++) {
+            int safe = 1; // Flag to check if the color can be assigned
+
+            // Check if this color can be assigned to vertex v
+            for (int i = 0; i < V; i++) {
+                if (graph[v][i] == 1 && color[i] == c) {
+                    safe = 0; // Color c is not safe to assign
+                    break;
+                }
+            }
+
+            // If safe, assign color and break
+            if (safe) {
+                color[v] = c;
+                break;
+            }
+        }
+    }
+
+    // Print the result
+    printf("Assigned colors:\n");
+    for (int i = 0; i < V; i++) {
+        printf("Vertex %d -> Color %d\n", i, color[i]);
+    }
+
+    return 0;
+}
