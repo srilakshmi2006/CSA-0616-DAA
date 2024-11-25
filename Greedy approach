@@ -1,0 +1,12 @@
+def greedy_max_weight(weights, capacity):
+    weights.sort(reverse=True)  # Prioritize heavier items
+    total = 0
+    for w in weights:
+        if total + w <= capacity:
+            total += w
+    return total
+
+# Example usage
+weights = [10, 50, 20, 30, 70, 40]
+capacity = 100
+print(greedy_max_weight(weights, capacity))  # Output: 100
