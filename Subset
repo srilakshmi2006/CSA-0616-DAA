@@ -1,0 +1,9 @@
+def jobScheduling(start, end, profit):
+    jobs = sorted(zip(start, end, profit), key=lambda x: x[1])
+    dp = [0]
+
+    for i, (s, e, p) in enumerate(jobs):
+        dp.append(max(dp[-1], p + dp[[j for j, (_, t, _) in enumerate(jobs[:i]) if t <= s][-1]] if [j for j, (_, t, _) in enumerate(jobs[:i]) if t <= s] else 0))
+    return dp[-1]
+
+print(jobScheduling([1, 9, 3, 3], [3, 4, 5, 6], [50, 10, 40, 70]))  # Output: 120

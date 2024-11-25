@@ -1,0 +1,11 @@
+def get_edges(graph):
+    edges = []
+    for node, neighbors in graph.items():
+        for neighbor, weight in neighbors:
+            if (neighbor, node, weight) not in edges:  # Avoid duplicate edges
+                edges.append((node, neighbor, weight))
+    return edges
+
+# Example usage
+graph = {'A': [('B', 1), ('C', 4)], 'B': [('A', 1), ('C', 2), ('D', 5)], 'C': [('A', 4), ('B', 2), ('D', 1)], 'D': [('B', 5), ('C', 1)]}
+print(get_edges(graph))

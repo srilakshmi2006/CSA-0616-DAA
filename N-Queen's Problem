@@ -1,0 +1,39 @@
+#include <stdio.h>
+#define N 4  // Change N to the desired board size
+int main() {
+    int board[N][2] = {{0}}, col = 0, row, i, found;
+
+    while (col >= 0) {
+        found = 0;
+        for (row = board[col][1] + 1; row < N; row++) {
+            for (i = 0; i < col; i++) {
+                if (board[i][1] == row || board[i][1] - i == row - col || board[i][1] + i == row + col)
+                    break;
+            }
+            if (i == col) {  // Safe position found
+                board[col][1] = row; // Store the row of the placed queen
+                found = 1;
+                break;
+            }
+        }
+
+        if (found) {  // Move to the next column
+            if (col == N - 1) {  // Solution found, print it
+                for (i = 0; i < N; i++) {
+                    for (int j = 0; j < N; j++)
+                        printf("%d ", board[i][1] == j ? 1 : 0);
+                    printf("\n");
+                }
+                printf("\n");
+                col--;  // Backtrack to find more solutions
+            } else {
+                col++;
+                board[col][1] = -1;  // Initialize the next column
+            }
+        } else {  // Backtrack
+            col--;
+        }
+    }
+
+    return 0;
+}

@@ -1,0 +1,18 @@
+def kruskal(edges, n):
+    parent = list(range(n))
+    find = lambda x: x if parent[x] == x else find(parent[x])
+    union = lambda x, y: parent.__setitem__(find(x), find(y))
+    
+    mst, cost = [], 0
+    for u, v, w in sorted(edges, key=lambda x: x[2]):
+        if find(u) != find(v):
+            union(u, v)
+            mst.append((u, v, w))
+            cost += w
+    return mst, cost
+
+# Example usage
+edges = [(0, 1, 10), (0, 2, 6), (0, 3, 5), (1, 3, 15), (2, 3, 4)]
+n = 4
+mst, cost = kruskal(edges, n)
+print("MST:", mst, "Cost:", cost)

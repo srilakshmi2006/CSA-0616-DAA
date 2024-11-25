@@ -1,0 +1,31 @@
+import heapq
+from collections import defaultdict
+
+def huffman_code(s):
+    # Count frequency of each character
+    freq = defaultdict(int)
+    for char in s:
+        freq[char] += 1
+
+    # Create a priority queue (min-heap) from the frequency data
+    heap = [[weight, [char, ""]] for char, weight in freq.items()]
+    heapq.heapify(heap)
+
+    while len(heap) > 1:
+        lo = heapq.heappop(heap)
+        hi = heapq.heappop(heap)
+        for pair in lo[1:]:
+            pair[1] = '0' + pair[1]
+        for pair in hi[1:]:
+            pair[1] = '1' + pair[1]
+        heapq.heappush(heap, [lo[0] + hi[0]] + lo[1:] + hi[1:])
+
+    # Extract the final encoding from the heap
+    huff = sorted(heap[0][1:], key=lambda p: (len(p[-1]), p))
+    return {char: code for char, code in huff}
+
+# Example usage
+text = "this is an example for huffman encoding"
+codes = huffman_code(text)
+for char, code in codes.items():
+    print(f'{char}: {code}')

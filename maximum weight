@@ -1,0 +1,17 @@
+def max_weight_in_container(weights, capacity):
+    # Sort the weights in descending order to prioritize heavier items
+    weights.sort(reverse=True)
+    
+    total_weight = 0
+    for weight in weights:
+        if total_weight + weight <= capacity:  # If adding the item doesn't exceed capacity
+            total_weight += weight
+        else:
+            break  # Stop once the container reaches its capacity
+    
+    return total_weight
+
+# Example usage
+weights = [10, 50, 20, 30, 70, 40]
+capacity = 100
+print(max_weight_in_container(weights, capacity))  # Output: 100 (10 + 50 + 40)

@@ -1,0 +1,13 @@
+def minimumMaximumTime(Jobs, k):
+    def canDistribute(mid):
+        workers = [0] * k
+        return all((workers.sort(), workers[0] + job <= mid and (workers[0] := workers[0] + job)) or False for job in sorted(Jobs, reverse=True))
+
+    low, high = max(Jobs), sum(Jobs)
+    while low < high:
+        mid = (low + high) // 2
+        if canDistribute(mid): high = mid
+        else: low = mid + 1
+    return low
+
+print(minimumMaximumTime([3, 2, 3, 5, 7], 2))  # Output: 10
