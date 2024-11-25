@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main() {
+    int n = 5, k = 2;
+    int C[k + 1]; 
+
+    for (int i = 0; i <= n; i++) {
+        for (int j = (i < k ? i : k); j > 0; j--) {
+            C[j] = (j == i) ? 1 : (j == 1) ? i : C[j] + C[j - 1];
+        }
+        C[0] = 1; 
+    }
+    
+    printf("C(%d, %d) = %d\n", n, k, C[k]);
+    return 0;
+}
